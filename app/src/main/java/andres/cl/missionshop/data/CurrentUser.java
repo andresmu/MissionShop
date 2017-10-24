@@ -22,4 +22,8 @@ public class CurrentUser {
     public String uid(){
         return currentUser.getUid();
     }
+
+    public String name(){
+        return currentUser.getDisplayName();
+    }
 }

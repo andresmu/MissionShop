@@ -18,9 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:background="@drawable/side_nav_bar">
 
-
+        <fragment
+            android:id="@+id/drawerFragment"
+            android:name="andres.cl.missionshop.views.main.DrawerFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_drawer" />
 
     </android.support.design.widget.NavigationView>
 

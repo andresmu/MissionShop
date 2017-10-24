@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="andres.cl.missionshop.views.main.DrawerFragment">
+
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/avatarCiv"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:siBorderWidth="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:src="@mipmap/ic_launcher"
+        app:siBorderColor="@android:color/holo_blue_dark" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/camerafab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        android:layout_gravity="right"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/logoutTv"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/nickTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/avatarCiv"
+        android:textColor="@android:color/black"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <View
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/nickTv"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/logoutTv"
+        android:textColor="@android:color/black"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="Cerrar Sesión"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"/>
+
+</RelativeLayout>
