@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:src="@mipmap/ic_launcher"
-        app:siBorderColor="@android:color/holo_blue_dark" />
+        app:siBorderColor="@color/authui_colorAccent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/camerafab"
@@ -41,11 +41,99 @@
         android:layout_marginTop="8dp"/>
 
     <View
+        android:id="@+id/viewLine"
         android:layout_marginTop="16dp"
         android:layout_below="@+id/nickTv"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/black"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logoutTv">
+
+        <TextView
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical"
+            android:id="@+id/missionList"
+            android:text="Mis Misiones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_art_track"
+            android:textColor="@android:color/black"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black"/>
+        <TextView
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical"
+            android:id="@+id/couponList"
+            android:text="Mis Cupones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_local_play"
+            android:textColor="@android:color/black"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black"/>
+
+        <TextView
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical"
+            android:id="@+id/profileList"
+            android:text="Perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_poll"
+            android:textColor="@android:color/black"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black"/>
+
+        <TextView
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical"
+            android:id="@+id/aboutList"
+            android:text="Acerca de MissionShop ®"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_copyright"
+            android:textColor="@android:color/black"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/logoutTv"
