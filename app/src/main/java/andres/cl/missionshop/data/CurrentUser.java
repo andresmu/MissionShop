@@ -23,7 +23,7 @@ public class CurrentUser {
         return currentUser.getUid();
     }
 
-    public String name(){
+    public String userName(){
         return currentUser.getDisplayName();
     }
 }

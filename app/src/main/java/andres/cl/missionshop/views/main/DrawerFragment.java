@@ -41,7 +41,7 @@ public class DrawerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView nick = (TextView) view.findViewById(R.id.nickTv);
-        nick.setText(new CurrentUser().name());
+        nick.setText(new CurrentUser().userName());
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
 
