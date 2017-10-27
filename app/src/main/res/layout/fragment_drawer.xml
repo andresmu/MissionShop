@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="andres.cl.missionshop.views.main.DrawerFragment">
+    tools:context="andres.cl.missionshop.views.main.drawer.DrawerFragment">
 
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/avatarCiv"

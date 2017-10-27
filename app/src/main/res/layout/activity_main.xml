@@ -23,7 +23,7 @@
 
         <fragment
             android:id="@+id/drawerFragment"
-            android:name="andres.cl.missionshop.views.main.DrawerFragment"
+            android:name="andres.cl.missionshop.views.main.drawer.DrawerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_drawer" />
