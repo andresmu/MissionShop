@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements ValidationCallba
         super.onActivityResult(requestCode, resultCode, data);
         if (RC_SIGN_IN == requestCode){
             if (resultCode == ResultCodes.OK){
+                new ProfilePhotoValidation().validate(this);
                 logged();
             } else{
                 singIn();

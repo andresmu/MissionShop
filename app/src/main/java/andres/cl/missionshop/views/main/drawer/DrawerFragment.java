@@ -64,6 +64,8 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         TextView profileList = (TextView) view.findViewById(R.id.profileList);
         TextView aboutList = (TextView) view.findViewById(R.id.aboutList);
 
+
+        new PhotoValidation(getContext(), this).init();
         imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
@@ -114,11 +116,11 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         String path = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "avatar", "MissionShop", MagicalCamera.JPEG, false);
 
         if (RESULT_OK == resultCode) {
-            Toast.makeText(getContext(), "The photo is save in device, please check this path: " + path, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
             new UpPhoto(getContext(), this).UpFile(path);
 
         }else{
-            Toast.makeText(getContext(), "Sorry your photo dont write in devide, please contact with fabian7593@gmail and say this error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Lo sentimos, tu foto no fue guardada contacta con fabian7593@gmail", Toast.LENGTH_SHORT).show();
             //noPhoto();
         }
     }
