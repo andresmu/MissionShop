@@ -1,6 +1,7 @@
 package andres.cl.missionshop.views.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +17,12 @@ import andres.cl.missionshop.data.Nodes;
 
 class ProfilePhotoValidation {
 
+    private ProfileCallback callback;
+
+    public ProfilePhotoValidation(ProfileCallback callback) {
+        this.callback = callback;
+    }
+
     public void validate(final Context context) {
         new Nodes().user(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -23,6 +30,7 @@ class ProfilePhotoValidation {
                 if (dataSnapshot.exists()) {
                     new LocalPhoto(context).save(dataSnapshot.getValue(String.class));
                 }
+                callback.done();
             }
 
             @Override

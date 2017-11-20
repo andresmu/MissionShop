@@ -65,8 +65,9 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         TextView aboutList = (TextView) view.findViewById(R.id.aboutList);
 
 
-        new PhotoValidation(getContext(), this).init();
+
         imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
+        new PhotoValidation(getContext(), this).init();
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
 

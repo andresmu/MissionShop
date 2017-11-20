@@ -15,4 +15,8 @@ public class Nodes{
         email = new EmailProcessor().sanitazedEmail(email);
         return root.child("users").child(email);
         }
+
+    public DatabaseReference missions(){
+        return root.child("missions");
+    }
 }

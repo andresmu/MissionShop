@@ -39,7 +39,7 @@ public class UpPhoto {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 @SuppressWarnings("VisibleForTests")
                 String url = taskSnapshot.getDownloadUrl().toString().split("&token")[0];
-                FirebaseDatabase.getInstance().getReference().child("users").child(new EmailProcessor().sanitazedEmail(new CurrentUser().email())).setValue(url);
+                FirebaseDatabase.getInstance().getReference().child("photoUsers").child(new EmailProcessor().sanitazedEmail(new CurrentUser().email())).setValue(url);
 
                // new Nodes().user(email).setValue(user);
                 new LocalPhoto(context).save(url);

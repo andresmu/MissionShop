@@ -6,6 +6,7 @@ package andres.cl.missionshop.models;
 
 public class Mission {
     private String name, description, local, address, status, logo, type, key;
+    private boolean newMission;
 
     public Mission() {
     }
@@ -72,5 +73,13 @@ public class Mission {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public boolean isNewMission() {
+        return newMission;
+    }
+
+    public void setNewMission(boolean newMission) {
+        this.newMission = newMission;
     }
 }

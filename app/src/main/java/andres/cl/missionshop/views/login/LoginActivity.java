@@ -1,5 +1,6 @@
 package andres.cl.missionshop.views.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +15,10 @@ import andres.cl.missionshop.R;
 import andres.cl.missionshop.views.main.MainActivity;
 
 
-public class LoginActivity extends AppCompatActivity implements ValidationCallback{
+public class LoginActivity extends AppCompatActivity implements ValidationCallback, ProfileCallback {
 
     private static final int RC_SIGN_IN = 111;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,9 @@ public class LoginActivity extends AppCompatActivity implements ValidationCallba
         super.onActivityResult(requestCode, resultCode, data);
         if (RC_SIGN_IN == requestCode){
             if (resultCode == ResultCodes.OK){
-                new ProfilePhotoValidation().validate(this);
-                logged();
+                progressDialog = new ProgressDialog(this);
+                progressDialog.show();
+                new ProfilePhotoValidation(this).validate(this);
             } else{
                 singIn();
             }
@@ -43,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements ValidationCallba
 
     @Override
     public void singIn(){
-
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -59,6 +60,14 @@ public class LoginActivity extends AppCompatActivity implements ValidationCallba
     }
     @Override
     public void logged(){
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void done() {
+        logged();
     }
 }
