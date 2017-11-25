@@ -2,6 +2,7 @@ package andres.cl.missionshop.data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * Created by Andrés on 07-11-2017.
@@ -16,7 +17,7 @@ public class Nodes{
         return root.child("users").child(email);
         }
 
-    public DatabaseReference missions(){
-        return root.child("missions");
+    public Query missions(){
+        return root.child("missions").orderByChild("position").startAt(0);
     }
 }

@@ -1,14 +1,25 @@
 package andres.cl.missionshop.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Andrés on 03-10-2017.
  */
 
-public class Mission {
+public class Mission implements Serializable{
     private String name, description, local, address, status, logo, type, key;
     private boolean newMission;
+    private int position;
 
     public Mission() {
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public String getName() {

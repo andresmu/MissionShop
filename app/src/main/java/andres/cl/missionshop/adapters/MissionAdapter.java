@@ -20,12 +20,15 @@ import andres.cl.missionshop.models.Mission;
 
 public class MissionAdapter extends FirebaseRecyclerAdapter<Mission, MissionAdapter.MissionHolder> {
 
-    public MissionAdapter() {
+    private MissionsListener listener;
+
+    public MissionAdapter(MissionsListener listener) {
         super(Mission.class, R.layout.list_item_mission, MissionHolder.class, new Nodes().missions());
+        this.listener=listener;
     }
 
     @Override
-    protected void populateViewHolder(final MissionHolder viewHolder, Mission model, int position) {
+    protected void populateViewHolder(final MissionHolder viewHolder, final Mission model, int position) {
         viewHolder.textView.setText(model.getName() + "\nTipo: " + model.getType() + "\nEn: " + model.getLocal());
         viewHolder.textView2.setText(model.getAddress());
         Picasso.with(viewHolder.itemView.getContext()).load(model.getLogo()).fit().centerCrop().into(viewHolder.imageView);
@@ -41,9 +44,16 @@ public class MissionAdapter extends FirebaseRecyclerAdapter<Mission, MissionAdap
             @Override
             public void onClick(View v) {
                 Mission aux = getItem(viewHolder.getAdapterPosition());
-
+                listener.clicked(aux);
+                //model.setNewMission(false);
             }
         });
+    }
+
+    @Override
+    protected void onDataChanged() {
+        super.onDataChanged();
+        listener.ready();
     }
 
     public static class MissionHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,7 @@ package andres.cl.missionshop.views.main.missionList;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,12 @@ import android.view.ViewGroup;
 
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.adapters.MissionAdapter;
+import andres.cl.missionshop.adapters.MissionsListener;
+import andres.cl.missionshop.models.Mission;
+import andres.cl.missionshop.views.missionDetail.MissionActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class MissionsFragment extends Fragment {
+
+public class MissionsFragment extends Fragment implements MissionsListener{
 
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
@@ -46,14 +48,29 @@ public class MissionsFragment extends Fragment {
         progressDialog.show();
 
         recyclerView = (RecyclerView) view;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        adapter = new MissionAdapter();
+        adapter = new MissionAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        progressDialog.dismiss();
 
+    }
+
+    @Override
+    public void clicked(Mission mission) {
+        Intent intent = new Intent(getActivity(), MissionActivity.class);
+        intent.putExtra("mission", mission);
+        startActivity(intent);
+        //new Nodes().missions()mission.setNewMission(false);
+    }
+
+    @Override
+    public void ready() {
+        progressDialog.dismiss();
     }
 }
