@@ -14,10 +14,15 @@ public class Nodes{
 
     public DatabaseReference user(String email){
         email = new EmailProcessor().sanitazedEmail(email);
-        return root.child("users").child(email);
+        return root.child("photoUsers").child(email);
         }
 
     public Query missions(){
         return root.child("missions").orderByChild("position").startAt(0);
     }
+
+    public DatabaseReference mission(String missionKey){
+       return root.child("missions").child(missionKey);
+    }
+
 }

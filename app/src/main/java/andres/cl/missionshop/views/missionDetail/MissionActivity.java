@@ -8,8 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import andres.cl.missionshop.R;
+import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
 
 public class MissionActivity extends AppCompatActivity {
@@ -31,8 +33,15 @@ public class MissionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
+
+        if (mission.isNewMission()){
+            mission.setNewMission(false);
+            Toast.makeText(this, "¡Eres el PRIMERO en abrir está misión!", Toast.LENGTH_SHORT).show();
+            new Nodes().mission(mission.getKey()).child("newMission").setValue(false);
+        }
     }
 
     @Override
@@ -42,6 +51,7 @@ public class MissionActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

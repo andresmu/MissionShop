@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.adapters.MissionAdapter;
 import andres.cl.missionshop.adapters.MissionsListener;
+import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.views.missionDetail.MissionActivity;
 
@@ -66,7 +67,6 @@ public class MissionsFragment extends Fragment implements MissionsListener{
         Intent intent = new Intent(getActivity(), MissionActivity.class);
         intent.putExtra("mission", mission);
         startActivity(intent);
-        //new Nodes().missions()mission.setNewMission(false);
     }
 
     @Override

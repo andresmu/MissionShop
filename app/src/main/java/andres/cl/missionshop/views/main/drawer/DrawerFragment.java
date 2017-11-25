@@ -137,6 +137,10 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
 
     @Override
     public void noPhoto() {
-
+      /*  Picasso.with(getContext())
+                .load()
+                .fit()
+                .centerCrop()
+                .into(imageView);*/
     }
 }

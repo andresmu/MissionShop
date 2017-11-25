@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Mission implements Serializable{
-    private String name, description, local, address, status, logo, type, key;
+    private String name, description, local, address, status, logo, photoPlace, type, key;
     private boolean newMission;
     private int position;
 
@@ -20,6 +20,14 @@ public class Mission implements Serializable{
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public String getPhotoPlace() {
+        return photoPlace;
+    }
+
+    public void setPhotoPlace(String photoPlace) {
+        this.photoPlace = photoPlace;
     }
 
     public String getName() {
