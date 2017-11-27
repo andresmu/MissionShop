@@ -8,10 +8,41 @@
     tools:context="andres.cl.missionshop.views.missionDetail.MissionActivity"
     tools:showIn="@layout/activity_mission">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/detailMissionFragment"
+            android:name="andres.cl.missionshop.views.missionDetail.fragments.DetailMissionFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <View
+            android:id="@+id/viewLine"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/nickTv"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"/>
+        <fragment
+            android:id="@+id/achievementFragment"
+            android:name="andres.cl.missionshop.views.missionDetail.fragments.AchievementFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/viewspace"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/nickTv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/black"/>
+
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

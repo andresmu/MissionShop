@@ -1,5 +1,6 @@
 package andres.cl.missionshop.views.missionDetail;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,7 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.Nodes;
@@ -22,12 +26,15 @@ public class MissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mission);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//activo boton atras
 
-        Mission mission = (Mission) getIntent().getSerializableExtra("mission");
-        getSupportActionBar().setTitle(mission.getName());
+        Mission mission = (Mission) getIntent().getSerializableExtra("mission");//tomo la mision
+        getSupportActionBar().setTitle(mission.getName());//pego el nombre en el toolbar
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        ImageView photoIv = (ImageView) findViewById(R.id.localDetailIv);
+        Picasso.with(this).load(mission.getPhotoPlace()).fit().centerCrop().into(photoIv);//pego imagen en la scrolling activity
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.cameraAchievfab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +46,7 @@ public class MissionActivity extends AppCompatActivity {
 
         if (mission.isNewMission()){
             mission.setNewMission(false);
-            Toast.makeText(this, "¡Eres el PRIMERO en abrir está misión!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "¡Eres el PRIMERO en abrir esta misión!", Toast.LENGTH_SHORT).show();
             new Nodes().mission(mission.getKey()).child("newMission").setValue(false);
         }
     }
