@@ -12,53 +12,52 @@
     android:clickable="true"
     tools:context="andres.cl.missionshop.views.missionDetail.fragments.DetailMissionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <com.github.siyamed.shapeimageview.BubbleImageView
-        android:id="@+id/photoBiv"
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/logoCiv"
         android:layout_width="48dp"
-        android:layout_height="match_parent"
+        android:layout_height="48dp"
         app:siArrowPosition="right"
-        app:siSquare="true"
-        android:src="@mipmap/ic_launcher_round"/>
+        app:siBorderWidth="1dp"
+        app:siBorderColor="@color/authui_colorAccent"
+        android:src="@drawable/logo1test"
+        app:siSquare="true"/>
 
         <TextView
             android:paddingRight="8dp"
             android:paddingLeft="8dp"
             android:textSize="17sp"
             android:id="@+id/descMissionTv"
-            android:text="Ir a el Restaurante Costanazca y Pedir cualquier plato de fondo del menú, sacar foto al plato pedido y comentar una pequeña reseña del servicio y calidad de comida"
             android:layout_width="170dp"
             android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/nameMissionTv"
+            android:id="@+id/typeMissionTv2"
             android:textSize="15sp"
-            android:layout_width="110dp"
-            android:text="Tipo: Compra en restaurante En: Costanazca"
-            android:layout_height="match_parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <View
             android:id="@+id/viewLine"
             android:layout_marginTop="1dp"
-            android:layout_below="@+id/nickTv"
+            android:layout_below="@+id/typeMissionTv2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/black"/>
         <TextView
-            android:id="@+id/descAdressTv"
+            android:id="@+id/descAdressTv2"
             android:textSize="15sp"
+            android:layout_below="@+id/viewLine"
             android:layout_width="100dp"
-            android:drawableLeft="@drawable/ic_pin_drop"
-            android:text="Av.Príncipe de Gales 6777, La Reina, Santiago"
-            android:layout_height="match_parent"/>
+            android:drawableRight="@drawable/ic_pin_drop"
+            android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import com.google.firebase.storage.UploadTask;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.EmailProcessor;
 import andres.cl.missionshop.data.LocalPhoto;
+import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.User;
 
 /**
@@ -48,4 +49,25 @@ public class UpPhoto {
             }
         });
     }
+
+    public void UpFileMission(String path, final String missionKey){
+        String bucket = "gs://missionshop-ded88.appspot.com/";
+        String folder = "missionPhoto/" + new EmailProcessor().sanitazedEmail(new CurrentUser().email()) + "/";
+        String fileName = missionKey + ".jpeg";
+        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(bucket + folder + fileName);
+        reference.putFile(Uri.parse("file://"+path)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                @SuppressWarnings("VisibleForTests")
+                String url = taskSnapshot.getDownloadUrl().toString().split("&token")[0];
+
+                new Nodes().achievement(new CurrentUser().email()).child(missionKey).child("foto").setValue(url);
+
+                // new Nodes().user(email).setValue(user);
+                callback.setPhoto(url);
+            }
+        });
+    }
+
+
 }

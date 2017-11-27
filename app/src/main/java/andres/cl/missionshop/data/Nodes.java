@@ -25,4 +25,9 @@ public class Nodes{
        return root.child("missions").child(missionKey);
     }
 
+    public DatabaseReference achievement(String email){
+        email = new EmailProcessor().sanitazedEmail(email);
+        return root.child("achievements").child(email);
+    }
+
 }

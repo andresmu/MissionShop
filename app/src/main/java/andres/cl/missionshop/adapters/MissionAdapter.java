@@ -70,7 +70,7 @@ public class MissionAdapter extends FirebaseRecyclerAdapter<Mission, MissionAdap
         public MissionHolder(View itemView) {
             super(itemView);
 
-            imageView = (CircularImageView) itemView.findViewById(R.id.photoBiv);
+            imageView = (CircularImageView) itemView.findViewById(R.id.photoCiv);
             imageView2 = (ImageView) itemView.findViewById(R.id.localIv);
             textView = (TextView) itemView.findViewById(R.id.typeMissionTv);
             textView2 = (TextView) itemView.findViewById(R.id.descAdressTv);

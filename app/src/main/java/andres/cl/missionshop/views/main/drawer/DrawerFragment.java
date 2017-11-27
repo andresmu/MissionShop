@@ -1,12 +1,15 @@
 package andres.cl.missionshop.views.main.drawer;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +22,16 @@ import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.github.siyamed.shapeimageview.CircularImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
+import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.views.login.LoginActivity;
+import andres.cl.missionshop.views.main.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -67,6 +75,26 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
 
 
         imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
+        new PhotoValidation(getContext(), this).init();
+
+        new Nodes().user(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Picasso.with(getContext())
+                            .load(dataSnapshot.getValue().toString())
+                            .fit()
+                            .centerCrop()
+                            .into(imageView);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         new PhotoValidation(getContext(), this).init();
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
@@ -117,8 +145,21 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         String path = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "avatar", "MissionShop", MagicalCamera.JPEG, false);
 
         if (RESULT_OK == resultCode) {
-            Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
             new UpPhoto(getContext(), this).UpFile(path);
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("¡Perfil Completo!");
+            alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, Veras tu foto la proxima vez que entres a la aplicación ");
+            alertDialog.setPositiveButton("Gracias", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    new Intent(Intent.ACTION_MAIN);
+                    getActivity().finish();
+                }
+            });
+            alertDialog.show();
 
         }else{
             Toast.makeText(getContext(), "Lo sentimos, tu foto no fue guardada contacta con fabian7593@gmail", Toast.LENGTH_SHORT).show();

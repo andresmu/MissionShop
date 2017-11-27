@@ -42,7 +42,7 @@
             android:clickable="true">
 
             <com.github.siyamed.shapeimageview.CircularImageView
-                android:id="@+id/photoBiv"
+                android:id="@+id/photoCiv"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:siArrowPosition="right"
