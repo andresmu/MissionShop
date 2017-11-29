@@ -4,7 +4,6 @@ package andres.cl.missionshop.views.main.drawer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +21,7 @@ import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.github.siyamed.shapeimageview.CircularImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -30,8 +30,10 @@ import com.squareup.picasso.Picasso;
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
+import andres.cl.missionshop.models.Achievement;
+import andres.cl.missionshop.views.UserMissionsList.UserMissionsActivity;
 import andres.cl.missionshop.views.login.LoginActivity;
-import andres.cl.missionshop.views.main.MainActivity;
+
 
 import static android.app.Activity.RESULT_OK;
 
@@ -72,6 +74,29 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         TextView profileList = (TextView) view.findViewById(R.id.profileList);
         TextView aboutList = (TextView) view.findViewById(R.id.aboutList);
 
+        missionList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new Nodes().userMission(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            Intent intent = new Intent(getContext(), UserMissionsActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "No has realizado misiones", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
 
 
         imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);

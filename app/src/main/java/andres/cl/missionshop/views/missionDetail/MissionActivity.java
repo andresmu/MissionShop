@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -38,58 +39,18 @@ public class MissionActivity extends AppCompatActivity {
         final Mission mission = (Mission) getIntent().getSerializableExtra("mission");//tomo la mision
         getSupportActionBar().setTitle(mission.getName());//pego el nombre en el toolbar
 
+        TextView textView = (TextView) findViewById(R.id.adressTV);
+
+        textView.setText(mission.getAddress());
+
         ImageView photoIv = (ImageView) findViewById(R.id.localDetailIv);
         Picasso.with(this).load(mission.getPhotoPlace()).fit().centerCrop().into(photoIv);//pego imagen en la scrolling activity
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.cameraAchievfab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
-
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()>3){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MissionActivity.this);
-                    alertDialog.setTitle("¡Misión Cumplida!");
-                    alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión");
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            if (mission.isNewMission()){
-                                mission.setNewMission(false);
-                                Toast.makeText(getBaseContext(), "¡Eres el PRIMERO en abrir esta misión!", Toast.LENGTH_SHORT).show();
-                                new Nodes().mission(mission.getKey()).child("newMission").setValue(false);
-                            }
-                        }
-                    });
-                    alertDialog.show();
-                } else if (dataSnapshot.getChildrenCount()==1 || dataSnapshot.getChildrenCount()==3){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MissionActivity.this);
-                    alertDialog.setTitle("¡Aún no terminas!");
-                    alertDialog.setMessage("Tu Mision esta a medias, ahora mismo el estado de tu mision es: Sin Completar");
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialog.show();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        if (mission.isNewMission()){
+            mission.setNewMission(false);
+            Toast.makeText(this, "¡Eres el PRIMERO en abrir esta misión!", Toast.LENGTH_SHORT).show();
+            new Nodes().mission(mission.getKey()).child("newMission").setValue(false);
+        }
     }
 
     @Override

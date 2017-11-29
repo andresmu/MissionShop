@@ -1,11 +1,13 @@
-package andres.cl.missionshop.views.main.missionList;
+package andres.cl.missionshop.views.UserMissionsList;
 
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,19 +18,24 @@ import android.view.ViewGroup;
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.adapters.MissionAdapter;
 import andres.cl.missionshop.adapters.MissionsListener;
-import andres.cl.missionshop.data.Nodes;
+import andres.cl.missionshop.adapters.UserMissionsAdapter;
+import andres.cl.missionshop.data.CurrentUser;
+import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.models.UserMission;
 import andres.cl.missionshop.views.missionDetail.MissionActivity;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class UserMissionsFragment extends Fragment implements MissionsListener{
 
-public class MissionsFragment extends Fragment implements MissionsListener{
 
-    private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
-    private MissionAdapter adapter;
+    private RecyclerView recyclerView;
+    private UserMissionsAdapter adapter;
 
-    public MissionsFragment() {
+    public UserMissionsFragment() {
         // Required empty public constructor
     }
 
@@ -37,13 +44,15 @@ public class MissionsFragment extends Fragment implements MissionsListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_missions, container, false);
-    }
+        return inflater.inflate(R.layout.fragment_user_missions, container, false);
 
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+       // Achievement achievement = (Achievement) getActivity().getIntent().getSerializableExtra("achievement");
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
@@ -51,16 +60,14 @@ public class MissionsFragment extends Fragment implements MissionsListener{
 
         recyclerView = (RecyclerView) view;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
-        adapter = new MissionAdapter(this);
+        String email = new CurrentUser().email();
+
+        adapter = new UserMissionsAdapter(this, email);
         recyclerView.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -77,6 +84,15 @@ public class MissionsFragment extends Fragment implements MissionsListener{
 
     @Override
     public void cliked2(UserMission userMission) {
-
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle("¡Misión Cumplida!");
+        alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: " + userMission.getStatus());
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }

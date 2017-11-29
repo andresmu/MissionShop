@@ -26,7 +26,8 @@
             android:id="@+id/photoRiv"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_photo" />
+            android:src="@drawable/ic_photo"
+            android:tag="ic_photo"/>
 
     </LinearLayout>
 
@@ -55,6 +56,7 @@
         android:hint="Escribe tu reseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_centerInParent="false"
         android:lines="2"/>
     <Button
@@ -62,7 +64,8 @@
         android:textColor="@android:color/black"
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="80dp"
         android:text="Enviar"/>
 
 </LinearLayout>

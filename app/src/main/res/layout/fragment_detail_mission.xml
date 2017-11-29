@@ -12,52 +12,50 @@
     android:clickable="true"
     tools:context="andres.cl.missionshop.views.missionDetail.fragments.DetailMissionFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <com.github.siyamed.shapeimageview.CircularImageView
-        android:id="@+id/logoCiv"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:siArrowPosition="right"
-        app:siBorderWidth="1dp"
-        app:siBorderColor="@color/authui_colorAccent"
-        android:src="@drawable/logo1test"
-        app:siSquare="true"/>
+        <ImageView
+            android:id="@+id/logoCiv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/logo1test" />
+
+        <Button
+            android:id="@+id/adressBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map"
+            android:text="¿Como llegar?"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:paddingRight="8dp"
             android:paddingLeft="8dp"
             android:textSize="17sp"
-            android:id="@+id/descMissionTv"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/typeMissionTv2"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <View
-            android:id="@+id/viewLine"
-            android:layout_marginTop="1dp"
-            android:layout_below="@+id/typeMissionTv2"
+            android:text="Descripción:"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"/>
-        <TextView
-            android:id="@+id/descAdressTv2"
-            android:textSize="15sp"
-            android:layout_below="@+id/viewLine"
-            android:layout_width="100dp"
-            android:drawableRight="@drawable/ic_pin_drop"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:textSize="17sp"
+            android:id="@+id/descMissionTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    </RelativeLayout>
 
+    </LinearLayout>
 
 </LinearLayout>

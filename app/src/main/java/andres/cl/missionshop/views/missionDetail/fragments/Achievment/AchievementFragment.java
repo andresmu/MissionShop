@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,10 +33,12 @@ import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.LocalPhoto;
 import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
+import andres.cl.missionshop.models.UserMission;
 import andres.cl.missionshop.views.main.drawer.DrawerFragment;
 import andres.cl.missionshop.views.main.drawer.PhotoCallback;
 import andres.cl.missionshop.views.main.drawer.PhotoValidation;
 import andres.cl.missionshop.views.main.drawer.UpPhoto;
+import andres.cl.missionshop.views.missionDetail.MissionActivity;
 
 import static andres.cl.missionshop.R.id.commentBtn;
 import static android.app.Activity.RESULT_OK;
@@ -74,23 +77,24 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         photoMission = (RoundedImageView) view.findViewById(R.id.photoRiv);
 
-       new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("foto").addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               if (dataSnapshot.exists()){
-                   Picasso.with(getContext())
-                           .load(dataSnapshot.getValue().toString())
-                           .fit()
-                           .centerCrop()
-                           .into(photoMission);
-               }
-           }
+        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("foto").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Picasso.with(getContext())
+                            .load(dataSnapshot.getValue().toString())
+                            .fit()
+                            .centerCrop()
+                            .into(photoMission);
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
+                }
+            }
 
-           }
-       });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("comentario").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -118,12 +122,24 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                 new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("comentario").setValue(desc);
                 new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("missionKey").setValue(mission.getKey());
                 new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("missionNombre").setValue(mission.getName());
+                    UserMission userMission = new UserMission();
+                    userMission.setName(mission.getName());
+                    userMission.setLocal(mission.getLocal());
+                    userMission.setAddress(mission.getAddress());
+                    userMission.setLogo(mission.getLogo());
+                    userMission.setPhotoPlace(mission.getPhotoPlace());
+                    userMission.setType(mission.getType());
+                    userMission.setKey(mission.getKey());
+                    userMission.setStatus(mission.getStatus());
+                new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).setValue(userMission);
                 comment.setText("");
+
+                    MissionValidation();
 
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                     alertDialog.setTitle("¡Completa tu misión!");
-                    alertDialog.setMessage("Tu foto puede ser guardada, pero debes comentar para completar la misión");
+                    alertDialog.setMessage("Debes escribir algo, ¡queremos saber si te gusto el servicio o no!");
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -191,6 +207,17 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                     }
                 });
                 alertDialog.show();
+            } else {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("¡Misión Cumplida!");
+                alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión");
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
             }
 
         }else{
@@ -221,5 +248,45 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
     }
 
+
+    public void MissionValidation(){
+
+        final Mission mission = (Mission) getActivity().getIntent().getSerializableExtra("mission");
+
+        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount()>3){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setTitle("¡Misión Cumplida!");
+                    alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión");
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                } else if (dataSnapshot.getChildrenCount()==3){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setTitle("¡Tenemos tus comentarios!");
+                    alertDialog.setMessage("Tu Mision aun no termina, te falta tomar la foto, ahora mismo el estado de tu mision es: Sin Completar");
+                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

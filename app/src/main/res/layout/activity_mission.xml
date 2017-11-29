@@ -28,6 +28,17 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/adressTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direccion"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:shadowColor="#000"
+                android:shadowDx="3" android:shadowDy="2" android:shadowRadius="1.8"
+                android:layout_marginTop="160dp"
+                android:drawableLeft="@drawable/ic_pin_drop"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

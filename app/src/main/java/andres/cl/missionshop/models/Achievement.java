@@ -2,13 +2,15 @@ package andres.cl.missionshop.models;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 import andres.cl.missionshop.data.LocalPhoto;
 
 /**
  * Created by Andrés on 03-10-2017.
  */
 
-public class Achievement {
+public class Achievement implements Serializable{
     private String  comment, photo, missionKey, missionName;
 
     public Achievement() {

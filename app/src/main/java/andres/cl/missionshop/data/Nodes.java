@@ -30,4 +30,9 @@ public class Nodes{
         return root.child("achievements").child(email);
     }
 
+    public DatabaseReference userMission(String email){
+         email = new EmailProcessor().sanitazedEmail(email);
+        return root.child("userMissions").child(email);
+    }
+
 }
