@@ -116,7 +116,7 @@
         <TextView
             android:drawablePadding="16dp"
             android:gravity="center_vertical"
-            android:id="@+id/aboutList"
+            android:id="@+id/aboutTv"
             android:text="Acerca de MissionShop ®"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

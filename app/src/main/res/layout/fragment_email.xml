@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="andres.cl.missionshop.views.AboutMe.contact.EmailFragment"
+android:orientation="vertical">
+
+
+<Button
+    android:id="@+id/contactBtn"
+    android:textColor="@android:color/white"
+    android:theme="@style/AccentButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="ESCRIBIRME"/>
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/subjectEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:hint="Asunto"/>
+<EditText
+    android:visibility="gone"
+    android:id="@+id/msgEt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:hint="Mensaje"/>
+<Button
+    android:visibility="gone"
+    android:id="@+id/sendBtn"
+    android:textColor="@android:color/white"
+    android:theme="@style/AccentButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Enviar"/>
+
+</LinearLayout>

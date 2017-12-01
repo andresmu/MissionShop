@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="andres.cl.missionshop.views.AboutMe.contact.ContactActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:drawableLeft="@drawable/ic_action_linkedin"
+        android:id="@+id/linkedinTv"
+        style="@style/clickableTextView"
+        android:text="LINKEDIN"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"/>
+    <TextView
+        android:id="@+id/phoneTv"
+        android:drawableLeft="@drawable/ic_action_phone"
+        style="@style/clickableTextView"
+        android:text="+56 9 76155382"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"/>
+    <fragment
+        android:id="@+id/email_fragment"
+        android:name="andres.cl.missionshop.views.AboutMe.contact.EmailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

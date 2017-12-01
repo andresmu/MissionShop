@@ -32,6 +32,7 @@ import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Coupon;
+import andres.cl.missionshop.views.AboutMe.AboutUsActivity;
 import andres.cl.missionshop.views.CouponList.UserCouponsActivity;
 import andres.cl.missionshop.views.UserMissionsList.UserMissionsActivity;
 import andres.cl.missionshop.views.login.LoginActivity;
@@ -75,12 +76,13 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         TextView missionList = (TextView) view.findViewById(R.id.missionList);
         TextView couponList = (TextView) view.findViewById(R.id.couponList);
         TextView profileList = (TextView) view.findViewById(R.id.profileList);
-        TextView aboutList = (TextView) view.findViewById(R.id.aboutList);
+        TextView aboutTv = (TextView) view.findViewById(R.id.aboutTv);
 
-        aboutList.setOnClickListener(new View.OnClickListener() {
+        aboutTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), AboutUsActivity.class);
+                startActivity(intent);
             }
         });
 

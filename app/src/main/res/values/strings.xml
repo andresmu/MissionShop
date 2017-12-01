@@ -89,5 +89,19 @@
     <string name="title_activity_user_missions">Mis Misiones</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_user_coupons">Mis Cupones</string>
+    <string name="title_activity_about_us">Andrés Murillo</string>
+    <string name="textContact">\nMissionShop, nace con la necesidad de ampliar el alcance de clientes a emprendimientos cuyo segmento se ve reducido por diversas razones.</string>
+    <string name="textContact2">\nCon la idea de acercar gente de diversas zonas a emprendedores en comienzo, MissionShop busca fidelizar los clientes de estas empresas a través de la aplicación, por esto decidi colocar comentarios directamente.</string>
+    <string name="textContact3">\nMissionShop, ofrece a los usuarios la opcion de ampliar su cartera de locales de comida, en diversas zonas y se proyecta ampliar rubros. La experiencia del usuario a ser mejor.</string>
+
+    <string name="info_text">
+        "Mi nombre es Andrés Murillo, soy Ingeniero en Informática y profesor particular independiente de Matematicas.\n\n"
+
+        "¿Quieres reforzar tus conocimientos matematicos o simplemente quieres aprender más?\n\n"
+
+        "¡Contactame tocando abajo!\n\n"
+
+    </string>
+
 
 </resources>
