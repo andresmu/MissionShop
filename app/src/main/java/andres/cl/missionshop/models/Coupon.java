@@ -6,8 +6,26 @@ package andres.cl.missionshop.models;
 
 public class Coupon {
     private String name, description, code;
+    private boolean valid;
+    private int position;
 
     public Coupon() {
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
     public String getName() {

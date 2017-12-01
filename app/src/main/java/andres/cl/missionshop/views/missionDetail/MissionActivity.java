@@ -71,15 +71,18 @@ public class MissionActivity extends AppCompatActivity {
 
         final Mission mission = (Mission) getIntent().getSerializableExtra("mission");
 
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildrenCount()>3){
-                    new Nodes().mission(mission.getKey()).child("status").setValue("En revisión");
+                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("status").setValue("En revisión");
                 } else {
-                    new Nodes().mission(mission.getKey()).child("status").setValue("Sin Completar");
+                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("status").setValue("Sin Completar");
+                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("photoPlace").setValue(mission.getPhotoPlace());
+                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("name").setValue(mission.getName());
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

@@ -31,6 +31,12 @@ public class UserMissionsAdapter extends FirebaseRecyclerAdapter<UserMission, Us
 
     @Override
     protected void populateViewHolder(final UserMissionHolder viewHolder, UserMission model, int position) {
+
+        if (model.getType() == null){
+            model.setType("¡Termina tu mision!");
+            model.setLocal("No haz terminado");
+
+        }
         viewHolder.textView3.setText(model.getName());
         viewHolder.textView.setText("Tipo: " + model.getType() + "\nEn: " + model.getLocal());
         viewHolder.textView2.setText(model.getAddress());

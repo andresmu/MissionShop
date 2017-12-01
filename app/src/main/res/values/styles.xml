@@ -47,5 +47,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AccentButton" parent="AppTheme">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
 
 </resources>

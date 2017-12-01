@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class UserMission implements Serializable{
-    private String name, local, address, logo, status,photoPlace, type, key;
+    private String name, local, address, logo, status, photoPlace, type, key;
     private boolean newMission;
 
     public UserMission() {

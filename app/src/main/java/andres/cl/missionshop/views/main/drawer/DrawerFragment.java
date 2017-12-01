@@ -31,10 +31,13 @@ import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Achievement;
+import andres.cl.missionshop.models.Coupon;
+import andres.cl.missionshop.views.CouponList.UserCouponsActivity;
 import andres.cl.missionshop.views.UserMissionsList.UserMissionsActivity;
 import andres.cl.missionshop.views.login.LoginActivity;
 
 
+import static android.R.string.no;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -73,6 +76,89 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         TextView couponList = (TextView) view.findViewById(R.id.couponList);
         TextView profileList = (TextView) view.findViewById(R.id.profileList);
         TextView aboutList = (TextView) view.findViewById(R.id.aboutList);
+
+        aboutList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        profileList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new Nodes().userMission(new CurrentUser().email()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Long misiones = dataSnapshot.getChildrenCount();
+                        String totales =  Long.toString(misiones);
+
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                        alertDialog.setTitle(new CurrentUser().userName());
+                        alertDialog.setMessage("Haz tomado un total de: "+totales+" Misiones");
+                        alertDialog.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                new Nodes().coupon(new CurrentUser().email()).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Long cupones = dataSnapshot.getChildrenCount();
+                                        String totalescu = Long.toString(cupones);
+
+                                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                                        alertDialog.setTitle(new CurrentUser().userName());
+                                        alertDialog.setMessage("Haz ganado un total de: " + totalescu+" Cupones");
+                                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        alertDialog.show();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        });
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
+
+        couponList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Nodes().coupon(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            Intent intent = new Intent(getContext(), UserCouponsActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "No has ganado cupones de descuento", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
         missionList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,24 +253,57 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
         super.onActivityResult(requestCode, resultCode, data);
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
-        String path = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "avatar", "MissionShop", MagicalCamera.JPEG, false);
+        String path = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), new Nodes().user(new CurrentUser().email()).getKey(), "MissionShop", MagicalCamera.JPEG, false);
 
         if (RESULT_OK == resultCode) {
             //Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
             new UpPhoto(getContext(), this).UpFile(path);
 
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-            alertDialog.setTitle("¡Perfil Completo!");
-            alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, Veras tu foto la proxima vez que entres a la aplicación ");
-            alertDialog.setPositiveButton("Gracias", new DialogInterface.OnClickListener() {
+            new Nodes().coupon(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    new Intent(Intent.ACTION_MAIN);
-                    getActivity().finish();
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()){
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                        alertDialog.setTitle("¡Felicidades!");
+                        alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, veras tu foto la proxima vez que entres a la aplicación \nademás te regalamos un cupon por subir tu foto de perfil :D");
+                        alertDialog.setPositiveButton("Gracias", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                new Intent(Intent.ACTION_MAIN);
+                            }
+                        });
+                        alertDialog.show();
+
+                        Coupon cupon = new Coupon();
+
+                        cupon.setName("Tu primer Cupon");
+                        cupon.setDescription("Tienes un 5% de descuento para tus siguiente misiones");
+                        cupon.setCode("firstMission");
+                        cupon.setValid(true);
+                        cupon.setPosition(1);
+
+                        new Nodes().coupon(new CurrentUser().email()).child("firstMission").setValue(cupon);
+                    }else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                        alertDialog.setTitle("Foto de perfil Actualizada");
+                        alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, veras tu foto la proxima vez que entres a la aplicación.");
+                        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                new Intent(Intent.ACTION_MAIN);
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
             });
-            alertDialog.show();
 
         }else{
             Toast.makeText(getContext(), "Lo sentimos, tu foto no fue guardada contacta con fabian7593@gmail", Toast.LENGTH_SHORT).show();
@@ -201,12 +320,5 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
                 .into(imageView);
     }
 
-    @Override
-    public void noPhoto() {
-      /*  Picasso.with(getContext())
-                .load()
-                .fit()
-                .centerCrop()
-                .into(imageView);*/
-    }
+
 }

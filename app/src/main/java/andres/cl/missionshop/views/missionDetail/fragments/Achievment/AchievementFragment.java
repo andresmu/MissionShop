@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +33,10 @@ import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.LocalPhoto;
 import andres.cl.missionshop.data.Nodes;
+import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.models.UserMission;
+import andres.cl.missionshop.views.main.MainActivity;
 import andres.cl.missionshop.views.main.drawer.DrawerFragment;
 import andres.cl.missionshop.views.main.drawer.PhotoCallback;
 import andres.cl.missionshop.views.main.drawer.PhotoValidation;
@@ -46,7 +49,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AchievementFragment extends Fragment implements PhotoCallback, MissionPhotoCallback{
+public class AchievementFragment extends Fragment implements PhotoCallback, MissionPhotoCallback, MissionValidationCallback{
 
     private static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 30;
 
@@ -72,7 +75,7 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         final Mission mission = (Mission) getActivity().getIntent().getSerializableExtra("mission");
         final EditText comment = (EditText) view.findViewById(R.id.commentEt);
-        Button commentBtn = (Button) view.findViewById(R.id.commentBtn);
+        ImageButton commentBtn = (ImageButton) view.findViewById(R.id.commentBtn);
         final TextView post = (TextView) view.findViewById(R.id.postTv);
 
         photoMission = (RoundedImageView) view.findViewById(R.id.photoRiv);
@@ -134,7 +137,7 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                 new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).setValue(userMission);
                 comment.setText("");
 
-                    MissionValidation();
+                    new MissionValidation(AchievementFragment.this).MissionValidation(mission.getKey(), getContext());
 
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -199,19 +202,8 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
             if (post.getText().toString().equals("No haz comentado")){
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("¡Foto Subida por: "+new CurrentUser().userName()+"!");
-                alertDialog.setMessage("¡Ya tenemos la foto de esta misión! Comenta que te ha parecido el servicio cuando gustes, 'pero re cuerda que aun tienes la mision sin completar!");
+                alertDialog.setMessage("¡Ya tenemos la foto de esta misión! Comenta que te ha parecido el servicio cuando gustes si 'No haz comentado', recuerda que aun tienes la mision sin completar!");
                 alertDialog.setPositiveButton("¡Lo hare!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                alertDialog.show();
-            } else {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("¡Misión Cumplida!");
-                alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión");
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -238,10 +230,6 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                 .into(photoMission);
     }
 
-    @Override
-    public void noPhoto() {
-
-    }
 
     @Override
     public void done() {
@@ -249,44 +237,8 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
     }
 
 
-    public void MissionValidation(){
-
-        final Mission mission = (Mission) getActivity().getIntent().getSerializableExtra("mission");
-
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()>3){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                    alertDialog.setTitle("¡Misión Cumplida!");
-                    alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión");
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialog.show();
-                } else if (dataSnapshot.getChildrenCount()==3){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                    alertDialog.setTitle("¡Tenemos tus comentarios!");
-                    alertDialog.setMessage("Tu Mision aun no termina, te falta tomar la foto, ahora mismo el estado de tu mision es: Sin Completar");
-                    alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialog.show();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    @Override
+    public void complete() {
+        Toast.makeText(getContext(), "¡FElICIDADES!", Toast.LENGTH_SHORT).show();
     }
-
 }

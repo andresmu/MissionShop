@@ -22,8 +22,6 @@ public class PhotoValidation {
         String url = new LocalPhoto(context).get();
         if (url != null){
             callback.setPhoto(url);
-        }else {
-            callback.noPhoto();
         }
     }
 }

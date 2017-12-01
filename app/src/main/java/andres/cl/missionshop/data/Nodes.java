@@ -35,4 +35,14 @@ public class Nodes{
         return root.child("userMissions").child(email);
     }
 
+    public DatabaseReference coupon(String email){
+        email = new EmailProcessor().sanitazedEmail(email);
+        return root.child("coupon").child(email);
+    }
+
+    public Query coupons(String email){
+        email = new EmailProcessor().sanitazedEmail(email);
+        return root.child("coupon").child(email).orderByChild("position").startAt(0);
+    }
+
 }

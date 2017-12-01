@@ -84,9 +84,10 @@ public class UserMissionsFragment extends Fragment implements MissionsListener{
 
     @Override
     public void cliked2(UserMission userMission) {
+        if (userMission.getStatus().equals("Sin Completar")){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setTitle("¡Misión Cumplida!");
-        alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: " + userMission.getStatus());
+        alertDialog.setTitle("¡Misión Incompleta!");
+        alertDialog.setMessage("Tu Mision esta incompleta, recuerda que debes tomar una foto y subir tu comentario");
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -94,5 +95,30 @@ public class UserMissionsFragment extends Fragment implements MissionsListener{
             }
         });
         alertDialog.show();
+
+        } else if (userMission.getStatus().equals("En revisión")){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setTitle("¡Misión Cumplida!");
+            alertDialog.setMessage("Tu Mision esta hecha, ahora el estado de tu mision es: '" + userMission.getStatus() +"'\nNuestro personal esta validando tu misión" +
+                    "\n\n¡Te mandaremos un correo cuando ganes tu cupon!");
+            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setTitle("¡Misión Completada!");
+            alertDialog.setMessage("Tu Mision esta completa, ¡Felicidades! ¡Ganaste un cupon!");
+            alertDialog.setPositiveButton("¡Gracias!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        }
     }
 }

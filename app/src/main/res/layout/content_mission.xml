@@ -27,6 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/black"/>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/viewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
         <fragment
             android:id="@+id/achievementFragment"
             android:name="andres.cl.missionshop.views.missionDetail.fragments.Achievment.AchievementFragment"
@@ -34,13 +39,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
-        <View
-            android:id="@+id/viewspace"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/nickTv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@android:color/black"/>
 
     </LinearLayout>
 

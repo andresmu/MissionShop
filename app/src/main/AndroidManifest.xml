@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-       <!-- android:theme="@style/AppTheme"-->>
+
+        <!-- android:theme="@style/AppTheme" -->
+        >
         <activity
             android:name=".views.login.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -35,7 +37,9 @@
         <activity
             android:name=".views.missionDetail.MissionActivity"
             android:label="@string/title_activity_mission"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".views.UserMissionsList.UserMissionsActivity"
             android:label="@string/title_activity_user_missions"
@@ -45,6 +49,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="andres.cl.missionshop.views.main.MainActivity" />
         </activity>
+        <activity
+            android:name=".views.CouponList.UserCouponsActivity"
+            android:label="@string/title_activity_user_coupons"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

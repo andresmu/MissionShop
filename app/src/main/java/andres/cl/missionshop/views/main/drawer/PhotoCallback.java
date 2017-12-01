@@ -7,5 +7,4 @@ package andres.cl.missionshop.views.main.drawer;
 public interface PhotoCallback {
 
     void setPhoto(String url);
-    void noPhoto();
 }
