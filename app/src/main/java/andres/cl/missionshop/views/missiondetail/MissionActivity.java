@@ -18,7 +18,7 @@ import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
 
-public class MissionActivity extends AppCompatActivity {
+public class MissionActivity extends AppCompatActivity implements TakeMissionCallback{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,25 +61,14 @@ public class MissionActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        // TODO: 10-12-2017
+
         final Mission mission = (Mission) getIntent().getSerializableExtra("mission");
 
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()>3){
-                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("status").setValue("En revisión");
-                } else {
-                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("status").setValue("Sin Completar");
-                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("photoPlace").setValue(mission.getPhotoPlace());
-                    new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).child("name").setValue(mission.getName());
-                }
-            }
+        new TakeMissionValidation(this).TakedMission(mission);
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    @Override
+    public void taked() {
+        Toast.makeText(this, "Mision Tomada", Toast.LENGTH_SHORT).show();
     }
 }

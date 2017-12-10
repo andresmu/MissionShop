@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="andres.cl.missionshop">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="25" />
@@ -61,6 +62,10 @@
             android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.aboutme.contact.ContactActivity"></activity>
+        <meta-data
+            tools:replace="android:value"
+            android:name="io.fabric.ApiKey"
+            android:value="d7b2288dd7513a81a2d66f00193b08e4cbc9e117" />
     </application>
 
 </manifest>

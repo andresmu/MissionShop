@@ -59,7 +59,6 @@ public class UserMissionsFragment extends Fragment implements MissionsListener{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        //recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         String email = new CurrentUser().email();
 

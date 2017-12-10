@@ -45,7 +45,7 @@ public class MissionsFragment extends Fragment implements MissionsListener{
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Cargando data");
+        progressDialog.setMessage("Cargando data...");
         progressDialog.show();
 
         recyclerView = (RecyclerView) view;

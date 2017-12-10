@@ -2,20 +2,20 @@ package andres.cl.missionshop.views.main;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import andres.cl.missionshop.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FirstRunCallback{
+
+    //private boolean welcome = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +31,8 @@ public class MainActivity extends AppCompatActivity {
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        new FirstRunValidation(this).checkFirstRun(this);
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("¡Bienvenido!");
-        alertDialog.setMessage("Bienvenido a MissionShop, aqui podras conocer locales en distintas partes completando misiones.\n\n¡Te regalamos un Cupon para tu primera mision, SOLO cargando tu foto de perfil!\n¡No te olvides!");
-        alertDialog.setPositiveButton("GRACIAS <3", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alertDialog.show();
     }
 
     @Override
@@ -52,5 +43,10 @@ public class MainActivity extends AppCompatActivity {
         } /*else {
             super.onBackPressed();
         }*/
+    }
+
+    @Override
+    public void first() {
+        Toast.makeText(this, "Validado", Toast.LENGTH_SHORT).show();
     }
 }

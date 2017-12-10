@@ -1,13 +1,18 @@
 package andres.cl.missionshop.views.login;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ResultCodes;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Arrays;
 
 import andres.cl.missionshop.BuildConfig;
@@ -23,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements ValidationCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 
         setContentView(R.layout.activity_login);
 
