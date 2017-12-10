@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="andres.cl.missionshop.views.missionDetail.MissionActivity"
+    tools:context="andres.cl.missionshop.views.missiondetail.MissionActivity"
     tools:showIn="@layout/activity_mission">
 
 
@@ -16,7 +16,7 @@
 
         <fragment
             android:id="@+id/detailMissionFragment"
-            android:name="andres.cl.missionshop.views.missionDetail.fragments.DetailMissionFragment"
+            android:name="andres.cl.missionshop.views.missiondetail.fragments.DetailMissionFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -34,7 +34,7 @@
             android:layout_height="0dp"/>
         <fragment
             android:id="@+id/achievementFragment"
-            android:name="andres.cl.missionshop.views.missionDetail.fragments.Achievment.AchievementFragment"
+            android:name="andres.cl.missionshop.views.missiondetail.fragments.achievment.AchievementFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>

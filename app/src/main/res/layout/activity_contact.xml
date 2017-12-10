@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="andres.cl.missionshop.views.AboutMe.contact.ContactActivity"
+    tools:context="andres.cl.missionshop.views.aboutme.contact.ContactActivity"
     android:orientation="vertical">
 
     <TextView
@@ -23,7 +23,7 @@
         android:clickable="true"/>
     <fragment
         android:id="@+id/email_fragment"
-        android:name="andres.cl.missionshop.views.AboutMe.contact.EmailFragment"
+        android:name="andres.cl.missionshop.views.aboutme.contact.EmailFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

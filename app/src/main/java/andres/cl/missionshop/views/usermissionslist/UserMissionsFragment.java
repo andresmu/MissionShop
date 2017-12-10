@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.UserMissionsList;
+package andres.cl.missionshop.views.usermissionslist;
 
 
 import android.app.ProgressDialog;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import andres.cl.missionshop.R;
-import andres.cl.missionshop.adapters.MissionAdapter;
 import andres.cl.missionshop.adapters.MissionsListener;
 import andres.cl.missionshop.adapters.UserMissionsAdapter;
 import andres.cl.missionshop.data.CurrentUser;
-import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.models.UserMission;
-import andres.cl.missionshop.views.missionDetail.MissionActivity;
+import andres.cl.missionshop.views.missiondetail.MissionActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +59,7 @@ public class UserMissionsFragment extends Fragment implements MissionsListener{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         String email = new CurrentUser().email();
 

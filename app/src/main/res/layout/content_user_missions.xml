@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="andres.cl.missionshop.views.UserMissionsList.UserMissionsActivity"
+    tools:context="andres.cl.missionshop.views.usermissionslist.UserMissionsActivity"
     tools:showIn="@layout/activity_user_missions">
 
     <fragment
         android:id="@+id/fragment_user_missions"
-        android:name="andres.cl.missionshop.views.UserMissionsList.UserMissionsFragment"
+        android:name="andres.cl.missionshop.views.usermissionslist.UserMissionsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

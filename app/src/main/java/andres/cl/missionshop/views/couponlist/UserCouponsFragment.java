@@ -1,8 +1,7 @@
-package andres.cl.missionshop.views.CouponList;
+package andres.cl.missionshop.views.couponlist;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -55,7 +54,6 @@ public class UserCouponsFragment extends Fragment implements CouponListener{
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
 
         String email = new CurrentUser().email();

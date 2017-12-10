@@ -38,13 +38,13 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.missionDetail.MissionActivity"
+            android:name=".views.missiondetail.MissionActivity"
             android:label="@string/title_activity_mission"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".views.UserMissionsList.UserMissionsActivity"
+            android:name=".views.usermissionslist.UserMissionsActivity"
             android:label="@string/title_activity_user_missions"
             android:parentActivityName=".views.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,14 +53,14 @@
                 android:value="andres.cl.missionshop.views.main.MainActivity" />
         </activity>
         <activity
-            android:name=".views.CouponList.UserCouponsActivity"
+            android:name=".views.couponlist.UserCouponsActivity"
             android:label="@string/title_activity_user_coupons"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.AboutMe.AboutUsActivity"
+            android:name=".views.aboutme.AboutUsActivity"
             android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.AboutMe.contact.ContactActivity"></activity>
+        <activity android:name=".views.aboutme.contact.ContactActivity"></activity>
     </application>
 
 </manifest>

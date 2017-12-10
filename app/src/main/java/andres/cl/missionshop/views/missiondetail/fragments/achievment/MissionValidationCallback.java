@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.missionDetail.fragments.Achievment;
+package andres.cl.missionshop.views.missiondetail.fragments.achievment;
 
 /**
  * Created by Andrés on 01-12-2017.
@@ -7,4 +7,5 @@ package andres.cl.missionshop.views.missionDetail.fragments.Achievment;
 public interface MissionValidationCallback {
 
     void complete();
+    void commentOk();
 }

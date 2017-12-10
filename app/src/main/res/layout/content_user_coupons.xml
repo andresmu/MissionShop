@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="andres.cl.missionshop.views.CouponList.UserCouponsActivity"
+    tools:context="andres.cl.missionshop.views.couponlist.UserCouponsActivity"
     tools:showIn="@layout/activity_user_coupons">
 
     <fragment
         android:id="@+id/fragment_user_coupons"
-        android:name="andres.cl.missionshop.views.CouponList.UserCouponsFragment"
+        android:name="andres.cl.missionshop.views.couponlist.UserCouponsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

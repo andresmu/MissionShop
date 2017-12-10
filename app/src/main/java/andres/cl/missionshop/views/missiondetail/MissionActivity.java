@@ -1,16 +1,9 @@
-package andres.cl.missionshop.views.missionDetail;
+package andres.cl.missionshop.views.missiondetail;
 
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +17,6 @@ import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
-import andres.cl.missionshop.views.main.MainActivity;
 
 public class MissionActivity extends AppCompatActivity {
 
@@ -69,6 +61,7 @@ public class MissionActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        // TODO: 10-12-2017
         final Mission mission = (Mission) getIntent().getSerializableExtra("mission");
 
         new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).addValueEventListener(new ValueEventListener() {

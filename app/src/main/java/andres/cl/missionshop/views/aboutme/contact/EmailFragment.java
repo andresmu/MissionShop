@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.AboutMe.contact;
+package andres.cl.missionshop.views.aboutme.contact;
 
 
 import android.content.Intent;

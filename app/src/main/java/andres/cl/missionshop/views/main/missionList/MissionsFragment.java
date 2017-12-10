@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,10 +15,9 @@ import android.view.ViewGroup;
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.adapters.MissionAdapter;
 import andres.cl.missionshop.adapters.MissionsListener;
-import andres.cl.missionshop.data.Nodes;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.models.UserMission;
-import andres.cl.missionshop.views.missionDetail.MissionActivity;
+import andres.cl.missionshop.views.missiondetail.MissionActivity;
 
 
 public class MissionsFragment extends Fragment implements MissionsListener{
@@ -56,7 +54,7 @@ public class MissionsFragment extends Fragment implements MissionsListener{
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL)); //Las cards no llevan divideritemDecoration
 
         adapter = new MissionAdapter(this);
         recyclerView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.missionDetail.fragments.Achievment;
+package andres.cl.missionshop.views.missiondetail.fragments.achievment;
 
 
 import android.content.DialogInterface;
@@ -9,13 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +22,7 @@ import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -33,17 +30,11 @@ import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.LocalPhoto;
 import andres.cl.missionshop.data.Nodes;
-import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Mission;
 import andres.cl.missionshop.models.UserMission;
-import andres.cl.missionshop.views.main.MainActivity;
-import andres.cl.missionshop.views.main.drawer.DrawerFragment;
 import andres.cl.missionshop.views.main.drawer.PhotoCallback;
-import andres.cl.missionshop.views.main.drawer.PhotoValidation;
 import andres.cl.missionshop.views.main.drawer.UpPhoto;
-import andres.cl.missionshop.views.missionDetail.MissionActivity;
 
-import static andres.cl.missionshop.R.id.commentBtn;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -56,6 +47,7 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
     private MagicalPermissions magicalPermissions;
     private MagicalCamera magicalCamera;
     RoundedImageView photoMission;
+    DatabaseReference achievment;
 
     public AchievementFragment() {
         // Required empty public constructor
@@ -80,51 +72,24 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         photoMission = (RoundedImageView) view.findViewById(R.id.photoRiv);
 
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("foto").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Picasso.with(getContext())
-                            .load(dataSnapshot.getValue().toString())
-                            .fit()
-                            .centerCrop()
-                            .into(photoMission);
+        new MissionPhotoValidation(this).validate(getContext(), mission.getKey(), photoMission);
 
-                }
-            }
+        new MissionValidation(this).CommentMissionValidation(mission.getKey(),post);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("comentario").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    post.setText(String.valueOf(dataSnapshot.getValue()));
-                } else {
-                    post.setText("No haz comentado");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String desc = comment.getText().toString();
                 if (desc.trim().length() > 0){
+                    post.setText(desc);
+                    // ACTUALIZADO DRY
+                    achievment = new Nodes().achievement(new CurrentUser().email()).child(mission.getKey());
 
-                post.setText(desc);
-                new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("comentario").setValue(desc);
-                new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("missionKey").setValue(mission.getKey());
-                new Nodes().achievement(new CurrentUser().email()).child(mission.getKey()).child("missionNombre").setValue(mission.getName());
+                    achievment.child("comentario").setValue(desc);
+                    achievment.child("missionKey").setValue(mission.getKey());
+                    achievment.child("missionNombre").setValue(mission.getName());
+
                     UserMission userMission = new UserMission();
                     userMission.setName(mission.getName());
                     userMission.setLocal(mission.getLocal());
@@ -134,8 +99,12 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                     userMission.setType(mission.getType());
                     userMission.setKey(mission.getKey());
                     userMission.setStatus(mission.getStatus());
-                new Nodes().userMission(new CurrentUser().email()).child(mission.getKey()).setValue(userMission);
-                comment.setText("");
+
+                    DatabaseReference userMissionRef = new Nodes().userMission(new CurrentUser().email()).child(mission.getKey());
+
+                    userMissionRef.setValue(userMission);
+
+                    comment.setText("");
 
                     new MissionValidation(AchievementFragment.this).MissionValidation(mission.getKey(), getContext());
 
@@ -217,8 +186,6 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
             //noPhoto();
         }
 
-
-        new MissionPhotoValidation(this).validate(getContext(), mission.getKey());
     }
 
     @Override
@@ -233,12 +200,17 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
     @Override
     public void done() {
-
+        Toast.makeText(getContext(), "Foto Validada", Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void complete() {
         Toast.makeText(getContext(), "¡FElICIDADES!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void commentOk() {
+        Toast.makeText(getContext(), "Comentario Validado", Toast.LENGTH_SHORT).show();
     }
 }

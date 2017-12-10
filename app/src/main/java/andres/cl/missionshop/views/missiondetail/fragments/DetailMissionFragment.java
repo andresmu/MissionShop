@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.missionDetail.fragments;
+package andres.cl.missionshop.views.missiondetail.fragments;
 
 
 import android.content.Context;
@@ -17,14 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.siyamed.shapeimageview.BubbleImageView;
-import com.github.siyamed.shapeimageview.CircularImageView;
-import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.models.Mission;
-import andres.cl.missionshop.models.UserMission;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -21,7 +21,6 @@ import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.github.siyamed.shapeimageview.CircularImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -30,15 +29,13 @@ import com.squareup.picasso.Picasso;
 import andres.cl.missionshop.R;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.Nodes;
-import andres.cl.missionshop.models.Achievement;
 import andres.cl.missionshop.models.Coupon;
-import andres.cl.missionshop.views.AboutMe.AboutUsActivity;
-import andres.cl.missionshop.views.CouponList.UserCouponsActivity;
-import andres.cl.missionshop.views.UserMissionsList.UserMissionsActivity;
+import andres.cl.missionshop.views.aboutme.AboutUsActivity;
+import andres.cl.missionshop.views.couponlist.UserCouponsActivity;
+import andres.cl.missionshop.views.usermissionslist.UserMissionsActivity;
 import andres.cl.missionshop.views.login.LoginActivity;
 
 
-import static android.R.string.no;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -85,6 +82,8 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
                 startActivity(intent);
             }
         });
+
+        // TODO: 10-12-2017 clicks en menu MVP
 
         profileList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,27 +187,9 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
 
 
         imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
-        new PhotoValidation(getContext(), this).init();
 
-        new Nodes().user(new CurrentUser().email()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    Picasso.with(getContext())
-                            .load(dataSnapshot.getValue().toString())
-                            .fit()
-                            .centerCrop()
-                            .into(imageView);
-                }
-            }
+        new PhotoValidation(getContext(), this).init(imageView);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        new PhotoValidation(getContext(), this).init();
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
 
@@ -277,6 +258,7 @@ public class DrawerFragment extends Fragment implements PhotoCallback{
                         });
                         alertDialog.show();
 
+                        // TODO: 10-12-2017
                         Coupon cupon = new Coupon();
 
                         cupon.setName("Tu primer Cupon");

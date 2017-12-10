@@ -10,7 +10,7 @@
     android:paddingRight="16dp"
     android:paddingTop="8dp"
     android:clickable="true"
-    tools:context="andres.cl.missionshop.views.missionDetail.fragments.DetailMissionFragment">
+    tools:context="andres.cl.missionshop.views.missiondetail.fragments.DetailMissionFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"

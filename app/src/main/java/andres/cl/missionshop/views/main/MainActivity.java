@@ -1,8 +1,10 @@
 package andres.cl.missionshop.views.main;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +30,18 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("¡Bienvenido!");
+        alertDialog.setMessage("Bienvenido a MissionShop, aqui podras conocer locales en distintas partes completando misiones.\n\n¡Te regalamos un Cupon para tu primera mision, SOLO cargando tu foto de perfil!\n¡No te olvides!");
+        alertDialog.setPositiveButton("GRACIAS <3", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override

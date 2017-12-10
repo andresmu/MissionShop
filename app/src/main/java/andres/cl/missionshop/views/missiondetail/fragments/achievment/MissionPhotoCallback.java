@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.missionDetail.fragments.Achievment;
+package andres.cl.missionshop.views.missiondetail.fragments.achievment;
 
 /**
  * Created by Andrés on 27-11-2017.
