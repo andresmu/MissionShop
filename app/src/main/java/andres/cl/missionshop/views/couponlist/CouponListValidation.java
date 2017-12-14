@@ -24,7 +24,7 @@ public class CouponListValidation {
         this.callback = callback;
     }
 
-    public void CouponListValidation(final Context context){
+    public void couponListValidation(){
 
         DatabaseReference cupon = new Nodes().coupon(new CurrentUser().email());
 
@@ -34,17 +34,7 @@ public class CouponListValidation {
                 long cupones = dataSnapshot.getChildrenCount();
                 String totales =  Long.toString(cupones);
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                alertDialog.setTitle("¡Tus Cupones!");
-                alertDialog.setMessage("Aqui ves los cupones que haz ganado. \nTienes un total de: "+ totales+"\n\n"
-                        +"*Para usar tus cupones, al momento de realizar una misión o comprar, antes de toca el cupón, y muestrale la pantalla al vendedor.* \n\nLos cupones con punto rojo quedan invalidos.");
-                alertDialog.setPositiveButton("¡Gracias!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+                callback.complete(totales);
             }
 
             @Override

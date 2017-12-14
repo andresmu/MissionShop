@@ -59,7 +59,7 @@ public class DetailMissionFragment extends Fragment {
 
                 final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
                 if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-                    AlertNoGps();
+                    alertNoGps();
                 }else {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse("google.navigation:q="+ mission.getAddress())); //https://cl.linkedin.com/in/andrés-murillo-acosta-5baa3ba7/
@@ -74,7 +74,7 @@ public class DetailMissionFragment extends Fragment {
         address.setText(mission.getAddress());*/
     }
 
-    private void AlertNoGps() {
+    private void alertNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
                 .setCancelable(false)

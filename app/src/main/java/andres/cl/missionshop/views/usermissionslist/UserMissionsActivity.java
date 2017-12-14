@@ -26,12 +26,23 @@ public class UserMissionsActivity extends AppCompatActivity implements UserMissi
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new UserMissionValidation(this).UserMissions(UserMissionsActivity.this);
+        new UserMissionValidation(this).userMissions();
 
     }
 
     @Override
-    public void complete() {
+    public void complete(String totales) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserMissionsActivity.this);
+        alertDialog.setTitle("¡Tus Misiones!");
+        alertDialog.setMessage("Aqui ves las misiones que haz hecho o intentado \nTienes un total de: "+ totales);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
         Toast.makeText(this, "Tus Misiones", Toast.LENGTH_SHORT).show();
     }
 }

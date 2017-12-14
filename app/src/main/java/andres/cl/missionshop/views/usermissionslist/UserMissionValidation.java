@@ -24,7 +24,7 @@ public class UserMissionValidation {
         this.callback = callback;
     }
 
-    public void UserMissions(final Context context){
+    public void userMissions(){
 
         DatabaseReference userMissions = new Nodes().userMission(new CurrentUser().email());
 
@@ -33,17 +33,7 @@ public class UserMissionValidation {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long misiones = dataSnapshot.getChildrenCount();
                 String totales =  Long.toString(misiones);
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                alertDialog.setTitle("¡Tus Misiones!");
-                alertDialog.setMessage("Aqui ves las misiones que haz hecho o intentado \nTienes un total de: "+ totales);
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+                callback.complete(totales);
             }
 
             @Override
@@ -51,7 +41,5 @@ public class UserMissionValidation {
 
             }
         });
-
-        callback.complete();
     }
 }

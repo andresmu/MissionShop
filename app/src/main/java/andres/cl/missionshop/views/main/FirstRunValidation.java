@@ -19,30 +19,21 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class FirstRunValidation {
+
     private FirstRunCallback callback;
 
     public  FirstRunValidation(FirstRunCallback callback){
         this.callback = callback;
     }
 
-    public void checkFirstRun(final Context context) {
+    public void checkFirstRun() {
         DatabaseReference userPhoto = new Nodes().user(new CurrentUser().email());
 
         userPhoto.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                    alertDialog.setTitle("¡Bienvenido!");
-                    alertDialog.setMessage("Bienvenido a MissionShop, aqui podras conocer locales en distintas partes completando misiones.\n\n¡Te regalamos un Cupon para tu primera mision, SOLO cargando tu foto de perfil!\n¡No te olvides!");
-                    alertDialog.setPositiveButton("GRACIAS <3", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialog.show();
-
+                    callback.first();
                 }
 
             }

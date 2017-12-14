@@ -5,5 +5,7 @@ package andres.cl.missionshop.views.main.drawer;
  */
 
 public interface DrawerMenuCallback {
-    void done();
+    void done(String totales, String totalesCu);
+    void gift();
+    void newPhoto();
 }

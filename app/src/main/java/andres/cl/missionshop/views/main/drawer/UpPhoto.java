@@ -30,7 +30,7 @@ public class UpPhoto {
         this.callback = callback;
     }
 
-    public void UpFile(String path){
+    public void upFile(String path){
         String bucket = "gs://missionshop-ded88.appspot.com/";
         String folder = "avatar/" + new EmailProcessor().sanitazedEmail(new CurrentUser().email()) + "/";
         String fileName = "avatar.jpeg";
@@ -50,7 +50,7 @@ public class UpPhoto {
         });
     }
 
-    public void UpFileMission(String path, final String missionKey){
+    public void upFileMission(String path, final String missionKey){
         String bucket = "gs://missionshop-ded88.appspot.com/";
         String folder = "missionPhoto/" + new EmailProcessor().sanitazedEmail(new CurrentUser().email()) + "/";
         String fileName = missionKey + ".jpeg";

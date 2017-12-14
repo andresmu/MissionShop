@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements FirstRunCallback{
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        new FirstRunValidation(this).checkFirstRun(this);
+        new FirstRunValidation(this).checkFirstRun();
 
     }
 
@@ -47,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements FirstRunCallback{
 
     @Override
     public void first() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("¡Bienvenido!");
+        alertDialog.setMessage("Bienvenido a MissionShop, aqui podras conocer locales en distintas partes completando misiones.\n\n¡Te regalamos un Cupon para tu primera mision, SOLO cargando tu foto de perfil!\n¡No te olvides!");
+        alertDialog.setPositiveButton("GRACIAS <3", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
         Toast.makeText(this, "Validado", Toast.LENGTH_SHORT).show();
     }
 }

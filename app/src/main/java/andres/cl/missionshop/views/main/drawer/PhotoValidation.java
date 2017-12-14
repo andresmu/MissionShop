@@ -28,12 +28,10 @@ public class PhotoValidation {
         this.callback = callback;
     }
 
-    public void init(final CircularImageView imageView){
+    public void init(){
         String url = new LocalPhoto(context).get();
         if (url != null){
             callback.setPhoto(url);
-
-            //DRY
 
             photoUser = new Nodes().user(new CurrentUser().email());
 
@@ -41,11 +39,7 @@ public class PhotoValidation {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()){
-                        Picasso.with(context)
-                                .load(dataSnapshot.getValue().toString())
-                                .fit()
-                                .centerCrop()
-                                .into(imageView);
+                        callback.setPhoto(dataSnapshot.getValue().toString());
                     }
                 }
 

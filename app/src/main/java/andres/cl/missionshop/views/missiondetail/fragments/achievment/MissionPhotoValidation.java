@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import andres.cl.missionshop.data.CurrentUser;
 import andres.cl.missionshop.data.LocalPhoto;
 import andres.cl.missionshop.data.Nodes;
+import andres.cl.missionshop.views.main.drawer.PhotoCallback;
 
 /**
  * Created by Andrés on 27-11-2017.
@@ -19,13 +20,13 @@ import andres.cl.missionshop.data.Nodes;
 
 public class MissionPhotoValidation {
 
-    private MissionPhotoCallback callback;
+    private PhotoCallback photo;
 
-    public MissionPhotoValidation(MissionPhotoCallback callback) {
-        this.callback = callback;
+    public MissionPhotoValidation(PhotoCallback photo) {
+        this.photo=photo;
     }
 
-    public void validate(final Context context, String key, final RoundedImageView photoMission) {
+    public void validate(final Context context, String key) {
 
         DatabaseReference achievmentFoto = new Nodes().achievement(new CurrentUser().email()).child(key).child("foto");
 
@@ -34,12 +35,7 @@ public class MissionPhotoValidation {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     new LocalPhoto(context).save(dataSnapshot.getValue(String.class));
-                    Picasso.with(context)
-                            .load(dataSnapshot.getValue().toString())
-                            .fit()
-                            .centerCrop()
-                            .into(photoMission);
-                    callback.done();
+                    photo.setPhoto(dataSnapshot.getValue(String.class));
                 }
             }
 

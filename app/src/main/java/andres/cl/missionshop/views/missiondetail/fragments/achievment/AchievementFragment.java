@@ -1,6 +1,8 @@
 package andres.cl.missionshop.views.missiondetail.fragments.achievment;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AchievementFragment extends Fragment implements PhotoCallback, MissionPhotoCallback, MissionValidationCallback{
+public class AchievementFragment extends Fragment implements PhotoCallback, MissionValidationCallback{
 
     private static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 30;
 
@@ -72,9 +74,10 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         photoMission = (RoundedImageView) view.findViewById(R.id.photoRiv);
 
-        new MissionPhotoValidation(this).validate(getContext(), mission.getKey(), photoMission);
+        new MissionPhotoValidation(this).validate(getContext(), mission.getKey());
 
-        new MissionValidation(this).CommentMissionValidation(mission.getKey(),post);
+
+        new MissionValidation(this).commentMissionVerification(mission.getKey());
 
 
         commentBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +109,7 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
                     comment.setText("");
 
-                    new MissionValidation(AchievementFragment.this).MissionValidation(mission.getKey(), getContext());
+                    new MissionValidation(AchievementFragment.this).missionVerification(mission.getKey());
 
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -167,7 +170,7 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         if (RESULT_OK == resultCode) {
             Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
-            new UpPhoto(getContext(), this).UpFileMission(path, mission.getKey());
+            new UpPhoto(getContext(), this).upFileMission(path, mission.getKey());
             if (post.getText().toString().equals("No haz comentado")){
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("¡Foto Subida por: "+new CurrentUser().userName()+"!");
@@ -183,7 +186,6 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
 
         }else{
             Toast.makeText(getContext(), "Lo sentimos, tu foto no fue guardada contacta con fabian7593@gmail", Toast.LENGTH_SHORT).show();
-            //noPhoto();
         }
 
     }
@@ -197,20 +199,39 @@ public class AchievementFragment extends Fragment implements PhotoCallback, Miss
                 .into(photoMission);
     }
 
-
-    @Override
-    public void done() {
-        Toast.makeText(getContext(), "Foto Validada", Toast.LENGTH_SHORT).show();
-    }
-
-
     @Override
     public void complete() {
-        Toast.makeText(getContext(), "¡FElICIDADES!", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("¡Misión Cumplida!");
+        alertDialog.setMessage("Tu Mision esta completa, ahora el estado de tu mision es: En revisión \n¡Te enviaremos un correo cuando tengas tu cupon ganado!");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+        Toast.makeText(getContext(), "¡FELICIDADES!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void commentOk() {
-        Toast.makeText(getContext(), "Comentario Validado", Toast.LENGTH_SHORT).show();
+    public void incomplete() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("¡Tenemos tus comentarios!");
+        alertDialog.setMessage("Tu Mision aun no termina, te falta tomar la foto, ahora mismo el estado de tu mision es: Sin Completar");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
+
+    @Override
+    public void commentOk(String comment) {
+        TextView post = (TextView) getActivity().findViewById(R.id.postTv);
+        post.setText(comment);
+    }
+
 }

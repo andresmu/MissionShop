@@ -25,7 +25,7 @@ public class UserCouponsActivity extends AppCompatActivity implements CouponList
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new CouponListValidation(this).CouponListValidation(UserCouponsActivity.this);
+        new CouponListValidation(this).couponListValidation();
 
     }
 
@@ -43,7 +43,19 @@ public class UserCouponsActivity extends AppCompatActivity implements CouponList
     }
 
     @Override
-    public void complete() {
+    public void complete(String totales) {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("¡Tus Cupones!");
+        alertDialog.setMessage("Aqui ves los cupones que haz ganado. \nTienes un total de: "+ totales+"\n\n"
+                +"*Para usar tus cupones, al momento de realizar una misión o comprar, antes de toca el cupón, y muestrale la pantalla al vendedor.* \n\nLos cupones con punto rojo quedan invalidos.");
+        alertDialog.setPositiveButton("¡Gracias!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
 
     }
 }

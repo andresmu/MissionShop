@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -70,6 +71,8 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
 
         FloatingActionButton cameraFab = (FloatingActionButton) view.findViewById(R.id.camerafab);
 
+        imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
+
         //Intents menu(navigation View)
         TextView missionList = (TextView) view.findViewById(R.id.missionList);
         TextView couponList = (TextView) view.findViewById(R.id.couponList);
@@ -84,13 +87,12 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
             }
         });
 
-        // TODO: 10-12-2017 clicks en menu MVP
 
         profileRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                new DrawerMenuValidation(DrawerFragment.this).profileListValidation(getContext());
+                new DrawerMenuValidation(getContext(), DrawerFragment.this).profileListValidation();
             }
         });
 
@@ -98,7 +100,7 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
             @Override
             public void onClick(View v) {
 
-                new DrawerMenuValidation(DrawerFragment.this).couponListValidation(getContext());
+                new DrawerMenuValidation(getContext(), DrawerFragment.this).couponListValidation();
             }
         });
 
@@ -106,14 +108,12 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
             @Override
             public void onClick(View v) {
 
-                new DrawerMenuValidation(DrawerFragment.this).missionListValidation(getContext());
+                new DrawerMenuValidation(getContext(), DrawerFragment.this).missionListValidation();
             }
         });
 
 
-        imageView = (CircularImageView) view.findViewById(R.id.avatarCiv);
-
-        new PhotoValidation(getContext(), this).init(imageView);
+        new PhotoValidation(getContext(), this).init();
 
 
         TextView logout = (TextView) view.findViewById(R.id.logoutTv);
@@ -165,13 +165,12 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
 
         if (RESULT_OK == resultCode) {
             //Toast.makeText(getContext(), "Tu foto fue guardada en tu galeria: " + path, Toast.LENGTH_SHORT).show();
-            new UpPhoto(getContext(), this).UpFile(path);
+            new UpPhoto(getContext(), this).upFile(path);
 
-            new DrawerMenuValidation(DrawerFragment.this).CuponGiftValidation(getContext());
+            new DrawerMenuValidation(getContext(), DrawerFragment.this).couponGiftValidation();
 
         }else{
             Toast.makeText(getContext(), "Lo sentimos, tu foto no fue guardada contacta con fabian7593@gmail", Toast.LENGTH_SHORT).show();
-            //noPhoto();
         }
     }
 
@@ -186,7 +185,70 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
 
 
     @Override
-    public void done() {
-        Toast.makeText(getContext(), "Validado", Toast.LENGTH_SHORT).show();
+    public void done(String totales, final String totalesCu) {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle(new CurrentUser().userName());
+        alertDialog.setMessage("Haz tomado un total de: "+totales+" Misiones");
+        alertDialog.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                alertDialog.setTitle(new CurrentUser().userName());
+                alertDialog.setMessage("Haz ganado un total de: " + totalesCu+" Cupones");
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
+    public void gift() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("¡Felicidades!");
+        alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, veras tu foto la proxima vez que entres a la aplicación \nademás te regalamos un cupon por subir tu foto de perfil :D");
+        alertDialog.setPositiveButton("Gracias", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                new Intent(Intent.ACTION_MAIN);
+            }
+        });
+        alertDialog.show();
+
+        Coupon cupon = new Coupon();
+
+        cupon.setName("Tu foto, Tu primer Cupon");
+        cupon.setDescription("Tienes un 5% de descuento para tus siguiente misiones");
+        cupon.setCode("firstMission");
+        cupon.setValid(true);
+        cupon.setPosition(1);
+
+        DatabaseReference firstCoupon = new Nodes().coupon(new CurrentUser().email()).child("firstMission");
+
+        firstCoupon.setValue(cupon);
+    }
+
+    @Override
+    public void newPhoto() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Foto de perfil Actualizada");
+        alertDialog.setMessage("Tu foto fue guardada en tu galeria como avatar, veras tu foto la proxima vez que entres a la aplicación.");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                new Intent(Intent.ACTION_MAIN);
+            }
+        });
+        alertDialog.show();
     }
 }

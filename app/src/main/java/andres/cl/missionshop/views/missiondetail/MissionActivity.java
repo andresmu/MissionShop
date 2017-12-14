@@ -61,10 +61,9 @@ public class MissionActivity extends AppCompatActivity implements TakeMissionCal
     protected void onPause() {
         super.onPause();
 
-
         final Mission mission = (Mission) getIntent().getSerializableExtra("mission");
 
-        new TakeMissionValidation(this).TakedMission(mission);
+        new TakeMissionValidation(this).takedMission(mission);
     }
 
     @Override
