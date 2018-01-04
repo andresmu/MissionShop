@@ -1,4 +1,4 @@
-package andres.cl.missionshop.views.main.missionList;
+package andres.cl.missionshop.views.main.missionlist;
 
 
 import android.app.ProgressDialog;
