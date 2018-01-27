@@ -5,5 +5,5 @@ package andres.cl.missionshop.views.usermissionslist;
  */
 
 public interface UserMissionCallback {
-    void complete(String totales);
+    void complete(String totals);
 }

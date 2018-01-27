@@ -28,9 +28,9 @@ public class MissionPhotoValidation {
 
     public void validate(final Context context, String key) {
 
-        DatabaseReference achievmentFoto = new Nodes().achievement(new CurrentUser().email()).child(key).child("foto");
+        DatabaseReference achievmentPhoto = new Nodes().achievement(new CurrentUser().email()).child(key).child("foto");
 
-        achievmentFoto.addListenerForSingleValueEvent(new ValueEventListener() {
+        achievmentPhoto.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

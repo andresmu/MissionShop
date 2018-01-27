@@ -43,11 +43,11 @@ public class UserCouponsActivity extends AppCompatActivity implements CouponList
     }
 
     @Override
-    public void complete(String totales) {
+    public void complete(String totals) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("¡Tus Cupones!");
-        alertDialog.setMessage("Aqui ves los cupones que haz ganado. \nTienes un total de: "+ totales+"\n\n"
+        alertDialog.setMessage("Aqui ves los cupones que haz ganado. \nTienes un total de: "+ totals+"\n\n"
                 +"*Para usar tus cupones, al momento de realizar una misión o comprar, antes de toca el cupón, y muestrale la pantalla al vendedor.* \n\nLos cupones con punto rojo quedan invalidos.");
         alertDialog.setPositiveButton("¡Gracias!", new DialogInterface.OnClickListener() {
             @Override

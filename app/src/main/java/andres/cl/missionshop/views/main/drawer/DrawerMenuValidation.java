@@ -45,17 +45,17 @@ public class DrawerMenuValidation {
         userMissions.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Long misiones = dataSnapshot.getChildrenCount();
-                final String totales =  Long.toString(misiones);
+                Long missions = dataSnapshot.getChildrenCount();
+                final String totals =  Long.toString(missions);
 
                 coupons = new Nodes().coupon(new CurrentUser().email());
                 coupons.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Long cupones = dataSnapshot.getChildrenCount();
-                        String totalescu = Long.toString(cupones);
+                        Long coupons = dataSnapshot.getChildrenCount();
+                        String totalsCo = Long.toString(coupons);
 
-                        profileCallback.done(totales, totalescu);
+                        profileCallback.done(totals, totalsCo);
                     }
 
                     @Override

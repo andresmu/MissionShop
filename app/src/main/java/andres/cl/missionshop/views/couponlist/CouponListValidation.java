@@ -32,9 +32,9 @@ public class CouponListValidation {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long cupones = dataSnapshot.getChildrenCount();
-                String totales =  Long.toString(cupones);
+                String totals =  Long.toString(cupones);
 
-                callback.complete(totales);
+                callback.complete(totals);
             }
 
             @Override

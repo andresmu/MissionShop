@@ -185,11 +185,11 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
 
 
     @Override
-    public void done(String totales, final String totalesCu) {
+    public void done(String totals, final String totalsCo) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
         alertDialog.setTitle(new CurrentUser().userName());
-        alertDialog.setMessage("Haz tomado un total de: "+totales+" Misiones");
+        alertDialog.setMessage("Haz tomado un total de: "+ totals +" Misiones");
         alertDialog.setPositiveButton("Siguiente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -197,7 +197,7 @@ public class DrawerFragment extends Fragment implements PhotoCallback, DrawerMen
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle(new CurrentUser().userName());
-                alertDialog.setMessage("Haz ganado un total de: " + totalesCu+" Cupones");
+                alertDialog.setMessage("Haz ganado un total de: " + totalsCo +" Cupones");
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

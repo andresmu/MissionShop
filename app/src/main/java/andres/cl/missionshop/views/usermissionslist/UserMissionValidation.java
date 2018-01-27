@@ -31,9 +31,9 @@ public class UserMissionValidation {
         userMissions.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                long misiones = dataSnapshot.getChildrenCount();
-                String totales =  Long.toString(misiones);
-                callback.complete(totales);
+                long missions = dataSnapshot.getChildrenCount();
+                String totals =  Long.toString(missions);
+                callback.complete(totals);
             }
 
             @Override

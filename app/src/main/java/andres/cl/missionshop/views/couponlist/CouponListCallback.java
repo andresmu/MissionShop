@@ -5,5 +5,5 @@ package andres.cl.missionshop.views.couponlist;
  */
 
 public interface CouponListCallback {
-    void complete(String totales);
+    void complete(String totals);
 }

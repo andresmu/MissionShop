@@ -31,10 +31,10 @@ public class UserMissionsActivity extends AppCompatActivity implements UserMissi
     }
 
     @Override
-    public void complete(String totales) {
+    public void complete(String totals) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserMissionsActivity.this);
         alertDialog.setTitle("¡Tus Misiones!");
-        alertDialog.setMessage("Aqui ves las misiones que haz hecho o intentado \nTienes un total de: "+ totales);
+        alertDialog.setMessage("Aqui ves las misiones que haz hecho o intentado \nTienes un total de: "+ totals);
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
